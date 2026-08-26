@@ -2,8 +2,10 @@ const express = require("express");
 const { url } = require("node:inspector");
 const app = express();
 const path = require("node:path");
-const indexRouter = require("./routes/indexRouter");
+const {indexRouter} = require("./routes/indexRouter");
 const { error } = require("node:console");
+const { movieRouter } = require("./routes/movieRouter");
+const { genreRouter } = require("./routes/genreRouter");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -13,6 +15,8 @@ app.use(express.urlencoded({extended: true}));
 
 
 app.use("/", indexRouter);
+app.use("/movies", movieRouter);
+app.use("/genre", genreRouter);
 
 const PORT = process.env.PORT || 3000;
 

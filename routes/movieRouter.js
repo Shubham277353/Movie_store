@@ -2,11 +2,9 @@ const Router = require("express");
 const validateUser = require("express-validator");
 const movieController = require("../controllers/movieController");
 
-const indexRouter = Router();
+const movieRouter = Router();
 
 
-indexRouter.get("/", movieController.getAllMovies);
 
 
-module.exports = { indexRouter } ;
-
+module.exports = { movieRouter } ;
