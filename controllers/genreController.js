@@ -16,7 +16,7 @@ async function getMovies(req, res ){
     console.log(fetchedMovies[0].genre);
     const heading = `${fetchedMovies[0].genre} movies`;
 
-    res.render("home", {title: heading, heading: heading, movies: fetchedMovies});
+    res.render("home", {title: heading, heading: heading,backUrl: "/genres", backText: "Back to genres", movies: fetchedMovies});
 }
 
 module.exports = {

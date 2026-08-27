@@ -64,6 +64,24 @@ async function getGenreMovies(id) {
     
 }
 
+async function getDirectorMovies(id) {
+    const { rows } = await pool.query(`
+        SELECT 
+        m.id, m.title,
+        m.year_released,
+        m.image_url,
+        d.name
+        FROM movies m
+        JOIN directors d
+        ON m.director_id = d.id
+        WHERE
+        d.id = $1
+        `, [id]);
+
+    return rows;
+    
+}
+
 
 module.exports = {
     allMovies,
@@ -71,4 +89,5 @@ module.exports = {
     getDirectors,
     getMovieInfo,
     getGenreMovies,
+    getDirectorMovies
 }

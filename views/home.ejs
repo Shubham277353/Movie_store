@@ -1,27 +1,38 @@
 <html>
 
 <head>
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
 </head>
 
 <body>
     <%- include("./partials/navbar") %>
 
-    <h2><%= heading %></h2>
+        <h2>
+            <%= heading %>
+        </h2>
 
-    <% movies.forEach((movie)=> { %>
-        <div class="movie-card">
-            <a href="/movies/<%= movie.id %>">
-                <img src="<%= movie.image_url %>" alt="<%= movie.title %> poster" onerror="this.src='/images/movie-placeholder.jpg'">
-                <h3>
-                    <%= movie.title %>
-                </h3>
-            </a>
-            <p>
-                <%= movie.year_released %>
-            </p>
-        </div>
-        <% }) %>
+        <% movies.forEach((movie)=> { %>
+            <div class="movie-card">
+                <a href="/movies/<%= movie.id %>">
+                    <img src="<%= movie.image_url %>" alt="<%= movie.title %> poster"
+                        onerror="this.src='/images/movie-placeholder.jpg'">
+                    <h3>
+                        <%= movie.title %>
+                    </h3>
+                </a>
+                <p>
+                    <%= movie.year_released %>
+                </p>
+            </div>
+            <% }) %>
+
+                <% if (backUrl) { %>
+                    <a href="<%= backUrl %>">
+                        <%= backText %>
+                    </a>
+                    <% } %>
 </body>
 
 </html>
