@@ -6,4 +6,6 @@ const genreRouter = Router();
 
 genreRouter.get("/", genreController.getAllGenres);
 
+genreRouter.get("/:id",genreController.getMovies);
+
 module.exports = { genreRouter } ;

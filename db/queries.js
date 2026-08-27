@@ -44,9 +44,31 @@ async function getMovieInfo(id) {
 }
 
 
+async function getGenreMovies(id) {
+    const { rows } = await pool.query(`
+        SELECT 
+        m.id, m.title,
+        m.year_released,
+        m.image_url,
+        c.name AS genre
+        FROM movies m
+        JOIN movie_genres mg
+        ON m.id = mg.movie_id
+        JOIN categories c
+        ON mg.category_id = c.id
+        WHERE
+        c.id = $1
+        `, [id]);
+
+    return rows;
+    
+}
+
+
 module.exports = {
     allMovies,
     getGenres,
     getDirectors,
     getMovieInfo,
+    getGenreMovies,
 }
