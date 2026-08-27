@@ -12,6 +12,7 @@
     <% movies.forEach((movie)=> { %>
         <div class="movie-card">
             <a href="/movies/<%= movie.id %>">
+                <img src="<%= movie.image_url %>" alt="<%= movie.title %> poster" onerror="this.src='/images/movie-placeholder.jpg'">
                 <h3>
                     <%= movie.title %>
                 </h3>

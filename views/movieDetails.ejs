@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <%- include("./partials/navbar") %>
+
+    <img src="<%= info.image_url %>" alt="<%= info.title %> poster">;
+    <h2><%= info.title %></h2>
+    <p>Year Released: <%= info.year_released %></p>
+    <% info.genres.forEach((genre)=> { %>
+            <a href="/genres/<%= genre.id %>">
+                <%= genre.name %>
+            </a>
+
+    <% }) %>
+    <p>Director: <%= info.directors %></p>
+
+
+    <a href="/">back to home...</a>
+</body>
+
+</html>

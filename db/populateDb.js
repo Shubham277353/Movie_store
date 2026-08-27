@@ -17,7 +17,8 @@ CREATE TABLE movies (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(255) NOT NULL,
     director_id INTEGER REFERENCES directors(id),
-    year_released INTEGER
+    year_released INTEGER,
+    image_url TEXT
 );
 
 CREATE TABLE movie_genres (
@@ -60,62 +61,62 @@ VALUES
   ('Quentin Tarantino');
 
 
-INSERT INTO movies (title, year_released, director_id)
+INSERT INTO movies (title, year_released, director_id, image_url)
 VALUES
-  ('Inception', 2010, 1),
-  ('The Dark Knight', 2008, 1),
-  ('Interstellar', 2014, 1),
-  ('Dunkirk', 2017, 1),
-  ('Oppenheimer', 2023, 1),
+  ('Inception', 2010, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMNCylezaRurf7U73lCHLAO9uoFe1qH1WazX7k1bGLyA&s'),
+  ('The Dark Knight', 2008, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3PhCcXO0pyxx4bXbkEJbCmPNQNj7nmFjdN1gPy0JCsw&s=10'),
+  ('Interstellar', 2014, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN6MBU9VxzNxqU0gzzOsgDR0Mpxn4_6BDHIzD-Xc8YaQ&s=10'),
+  ('Dunkirk', 2017, 1,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoJJKiarCS1sZI5F-kqFu4deqfn2kQwJuiI91uWP2cNQ&s=10'),
+  ('Oppenheimer', 2023, 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3gsJAEwsM9Y3lIK2f6M24jtsae8ljoF2kFvC03Qn7Tw&s'),
 
-  ('Alien', 1979, 2),
-  ('Blade Runner', 1982, 2),
-  ('Gladiator', 2000, 2),
-  ('The Martian', 2015, 2),
+  ('Alien', 1979, 2, 'https://upload.wikimedia.org/wikipedia/en/c/c3/Alien_movie_poster.jpg'),
+    ('Blade Runner', 1982, 2, 'https://upload.wikimedia.org/wikipedia/en/9/9f/Blade_Runner_%281982_poster%29.png'),
+    ('Gladiator', 2000, 2, 'https://upload.wikimedia.org/wikipedia/en/f/fb/Gladiator_%282000_film_poster%29.png?utm_source=en.wikipedia.org&utm_campaign=index&utm_content=original'),
+    ('The Martian', 2015, 2, 'https://upload.wikimedia.org/wikipedia/en/c/cd/The_Martian_film_poster.jpg'),
 
-  ('Get Out', 2017, 3),
-  ('Us', 2019, 3),
-  ('Nope', 2022, 3),
+    ('Get Out', 2017, 3, 'https://upload.wikimedia.org/wikipedia/en/a/a3/Get_Out_poster.png'),
+    ('Us', 2019, 3, 'https://upload.wikimedia.org/wikipedia/en/0/00/Us_%282019%29_theatrical_poster.png'),
+    ('Nope', 2022, 3, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgBzVkeiwkRhOLDrlCvSVOP2-KATMV1PWMVM0BEiGuZA&s=10'),
 
-  ('Jaws', 1975, 4),
-  ('E.T. the Extra-Terrestrial', 1982, 4),
-  ('Jurassic Park', 1993, 4),
-  ('Saving Private Ryan', 1998, 4),
+    ('Jaws', 1975, 4, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzJFvESnqt7_HImgWqEea0jwiH6G8aoP5rxHePz7h9yA&s=10'),
+    ('E.T. the Extra-Terrestrial', 1982, 4, 'https://upload.wikimedia.org/wikipedia/en/6/66/E_t_the_extra_terrestrial_ver3.jpg'),
+    ('Jurassic Park', 1993, 4, 'https://upload.wikimedia.org/wikipedia/en/e/e7/Jurassic_Park_poster.jpg'),
+    ('Saving Private Ryan', 1998, 4, 'https://upload.wikimedia.org/wikipedia/en/a/ac/Saving_Private_Ryan_poster.jpg'),
 
-  ('Taxi Driver', 1976, 5),
-  ('Goodfellas', 1990, 5),
-  ('The Departed', 2006, 5),
-  ('The Wolf of Wall Street', 2013, 5),
+    ('Taxi Driver', 1976, 5, 'https://upload.wikimedia.org/wikipedia/en/3/33/Taxi_Driver_%281976_film_poster%29.jpg'),
+    ('Goodfellas', 1990, 5, 'https://upload.wikimedia.org/wikipedia/en/7/7b/Goodfellas.jpg'),
+    ('The Departed', 2006, 5, 'https://upload.wikimedia.org/wikipedia/en/5/50/Departed234.jpg'),
+    ('The Wolf of Wall Street', 2013, 5, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW_yEm4pB3ad0HUdj6POYpN663g04yFd_VnAnE0qFgKw&s=10'),
 
-  ('My Neighbor Totoro', 1988, 6),
-  ('Princess Mononoke', 1997, 6),
-  ('Spirited Away', 2001, 6),
-  ('Howl''s Moving Castle', 2004, 6),
+    ('My Neighbor Totoro', 1988, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgZRU-FTaffoFhuvDcNgQERA9pEdLu6n27Kq5gWpTkeQ&s=10'),
+    ('Princess Mononoke', 1997, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGfFTU0jGct1AZJqHpyR9rVG1GPIoUBiWL2ASAI4SZaw&s=10'),
+    ('Spirited Away', 2001, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSINJHZKscWPPgIL0sTcPF6pnqcLODb2g1jLHgS_qmfOw&s=10'),
+    ('Howl''s Moving Castle', 2004, 6, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZHMTK2XVh_Rsf3GEKa0B60MCt5i4HKRebcZn4HEDfmw&s=10'),
 
-  ('Pather Panchali', 1955, 7),
-  ('Aparajito', 1956, 7),
-  ('The Music Room', 1958, 7),
+    ('Pather Panchali', 1955, 7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwwz3ojn97kf8HprHyK2BiXZy_mDAtmNJlQqIPv4aRRA&s=10'),
+    ('Aparajito', 1956, 7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7nydQi8hpPWYvalZFdMm4NSuZMCFbKyG_NIM34tERpw&s=10'),
+    ('The Music Room', 1958, 7, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzKzrMQ9mvECRP6JaUEEzZMu_GKME41QoQDOTUiKxOoQ&s=10'),
 
-  ('The Terminator', 1984, 8),
-  ('Aliens', 1986, 8),
-  ('Titanic', 1997, 8),
-  ('Avatar', 2009, 8),
+    ('The Terminator', 1984, 8, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbeoqoFGLjgD9hotLW0KIuJ18Vyxr_wilwY03h5MjBUw&s=10'),
+    ('Aliens', 1986, 8, 'https://upload.wikimedia.org/wikipedia/en/f/fb/Aliens_poster.jpg'),
+    ('Titanic', 1997, 8, 'https://upload.wikimedia.org/wikipedia/en/1/18/Titanic_%281997_film%29_poster.png'),
+    ('Avatar', 2009, 8, 'https://upload.wikimedia.org/wikipedia/en/d/d6/Avatar_%282009_film%29_poster.jpg'),
 
-  ('Prisoners', 2013, 9),
-  ('Sicario', 2015, 9),
-  ('Arrival', 2016, 9),
-  ('Dune', 2021, 9),
+    ('Prisoners', 2013, 9, 'https://upload.wikimedia.org/wikipedia/en/6/63/Prisoners2013Poster.jpg'),
+    ('Sicario', 2015, 9, 'https://upload.wikimedia.org/wikipedia/en/4/4b/Sicario_poster.jpg'),
+    ('Arrival', 2016, 9, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrBiRhOZHOEQQF7_Ra0jGyWFYH6snU2cMCkDToLNo-GQ&s=10'),
+    ('Dune', 2021, 9, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZPuNgtZLLY6Y5-iJi3LlqJpanzPKfHFO-Yz9eO4GDkw&s=10'),
 
-  ('Memories of Murder', 2003, 10),
-  ('The Host', 2006, 10),
-  ('Snowpiercer', 2013, 10),
-  ('Parasite', 2019, 10),
+    ('Memories of Murder', 2003, 10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_jlRziTqMxVAoqnojGju-TEqLtRKabq9c603UXMlTLg&s=10'),
+    ('The Host', 2006, 10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwWBjXxqPHuB9WJX4J7BG0S1A_L6fOUKh5lF3PDBNHNA&s=10t'),
+    ('Snowpiercer', 2013, 10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnFzO26sXdq1JVYzNLAXlA4tdQ7oMFMg_P7aZVol0fjA&s=10'),
+    ('Parasite', 2019, 10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEWP0EtvEQQKA1CUplqT-LzNuKoTzSUssOxxu_7PMoNA&s=10'),
 
-  ('Reservoir Dogs', 1992, 11),
-  ('Pulp Fiction', 1994, 11),
-  ('Kill Bill: Vol. 1', 2003, 11),
-  ('Inglourious Basterds', 2009, 11),
-  ('Django Unchained', 2012, 11);
+    ('Reservoir Dogs', 1992, 11, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJBtNXJF7Ydj8G9shoIrmT1ePlI6azzL8qRE88V21wlA&s=10'),
+    ('Pulp Fiction', 1994, 11, 'https://upload.wikimedia.org/wikipedia/en/3/3b/Pulp_Fiction_%281994%29_poster.jpg'),
+    ('Kill Bill: Vol. 1', 2003, 11, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLaRK73rYg1WGdgyWn5jzORpVmjfIEhlLGNxNzhuumZw&s=10'),
+    ('Inglourious Basterds', 2009, 11, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLQkOMb-gCibwSGqQh6zACd23o8aEVx_VJyRONufdBzQ&s'),
+    ('Django Unchained', 2012, 11, 'https://upload.wikimedia.org/wikipedia/en/8/8b/Django_Unchained_Poster.jpg');
 
 INSERT INTO movie_genres (movie_id, category_id)
 VALUES
@@ -363,7 +364,7 @@ async function main() {
     await client.query(SQL);
     console.log("Done");
   } catch (err) {
-    console.error("Database Error: ", err);
+    console.error("Database ", err);
   } finally {
     await client.end();
   }
