@@ -10,12 +10,12 @@
 <body>
     <%- include("./partials/navbar") %>
 
-    <h2>All Genres</h2>
-    <% genres.forEach((genre)=> { %>
+    <h2>All Directors</h2>
+    <% directors.forEach((director)=> { %>
         <div>
-            <a href="/genres/<%= genre.id %>">
+            <a href="/directors/<%= director.id %>">
                 <h3>
-                    <%= genre.name %>
+                    <%= director.name %>
                 </h3>
             </a>
         </div>

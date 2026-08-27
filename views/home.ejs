@@ -5,7 +5,10 @@
 </head>
 
 <body>
-    <h1>Movie Store</h1>
+    <%- include("./partials/navbar") %>
+
+    <h2>All Movies</h2>
+
     <% movies.forEach((movie)=> { %>
         <div class="movie-card">
             <a href="/movies/<%= movie.id %>">
