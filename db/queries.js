@@ -10,7 +10,13 @@ async function getGenres() {
     return rows;
 }
 
+async function getDirectors() {
+    const {rows} = await pool.query('SELECT * FROM directors');
+    return rows;
+}
+
 module.exports = {
     allMovies,
-    getGenres
+    getGenres,
+    getDirectors
 }
