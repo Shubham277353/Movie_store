@@ -1,15 +1,16 @@
 const pool = require("./pool");
 
-async function getAllMovies() {
-    const { rows } = pool.query(`SELECT movies.id, movies.title, movies.year_released AS Year From
-        movies ORDER BY movies.title`)
+async function allMovies() {
+    const { rows } = await pool.query(`SELECT * From movies ORDER BY movies.title`)
     return rows;
 }
 
-// async function getMovieDetails(id) {
-//     const {rows} = pool.query(`SELECT`)
-// }
+async function getGenres() {
+    const {rows} = await pool.query('SELECT * FROM categories');
+    return rows;
+}
 
 module.exports = {
-    getAllMovies,
+    allMovies,
+    getGenres
 }

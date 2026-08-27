@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genres</title>
+</head>
+
+<body>
+    <h1>Genres/Categorires</h1>
+    <% genres.forEach((genre)=> { %>
+        <div class="movie-card">
+            <a href="/genres/<%= genre.id %>">
+                <h3>
+                    <%= genre.name %>
+                </h3>
+            </a>
+        </div>
+        <% }) %>
+</body>
+
+</html>

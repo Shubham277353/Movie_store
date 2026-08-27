@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended: true}));
 
 app.use("/", indexRouter);
 app.use("/movies", movieRouter);
-app.use("/genre", genreRouter);
+app.use("/genres", genreRouter);
 
 const PORT = process.env.PORT || 3000;
 

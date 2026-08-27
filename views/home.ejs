@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <h1>Movie Store</h1>
+    <% movies.forEach((movie)=> { %>
+        <div class="movie-card">
+            <a href="/movies/<%= movie.id %>">
+                <h3>
+                    <%= movie.title %>
+                </h3>
+            </a>
+            <p>
+                <%= movie.year_released %>
+            </p>
+        </div>
+        <% }) %>
+</body>
+
+</html>
