@@ -83,6 +83,8 @@ async function getDirectorMovies(id) {
 }
 
 
+
+
 module.exports = {
     allMovies,
     getGenres,
