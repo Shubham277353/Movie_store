@@ -22,13 +22,26 @@ async function getCreateForm(req, res){
     const genres = await db.getGenres();
     const directors = await db.getDirectors();
 
-    console.log("New data: ", genres, directors)
-
     res.render("moviesForm", {directors: directors, genres: genres});
+}
+
+async function postCreateForm(req, res) {
+    const movieId = await db.addMovie(req.body);
+
+    const genres = Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres];
+
+    console.log("movieId:", movieId);
+console.log("genres:", req.body.genres);
+
+    db.addGenres(genres, movieId);
+
+    res.redirect("/");
+    
 }
 
 module.exports = {
     getAllMovies,
     getMovieDetails,
     getCreateForm,
+    postCreateForm,
 }

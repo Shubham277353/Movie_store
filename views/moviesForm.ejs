@@ -4,23 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Genres</title>
+    <title>Create new movie</title>
 </head>
 
 <body>
     <form action="/movies/new" method="post">
         <label for="title">
-            <input type="text" id="title" name="title" placeholder="Inception">
+            <input type="text" id="title" name="title" placeholder="Inception" required>
         </label>
-
+        
         <label for="releaseDate">Select Release Date:</label>
-        <input type="date" id="releaseDate" name="releaseDate">
-
-
+        <input type="number" id="releaseDate" name="releaseDate" required>
+        
+        
         <label for="director">Select a director:</label>
         <select name="director" id="director">
             <% directors.forEach((director)=> { %>
-                <option value="<%= director.name %>">
+                <option value="<%= director.id %>">
                     <%= director.name %>
                 </option>
                 <% }) %>
@@ -30,9 +30,13 @@
             <label for="<%= genre.name %>">
                 <%= genre.name %>
             </label>
-            <input type="checkbox" name="genres" id="<%= genre.name %>" value="<%= genre.name %>"><br>
+            <input type="checkbox" name="genres" id="<%= genre.name %>" value="<%= genre.id %>"><br>
             <% }) %>
-            
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="url" id="imageUrl" name="imageUrl">
+        
+        <Button type="submit">Submit</Button>
     </form>
 </body>
 
