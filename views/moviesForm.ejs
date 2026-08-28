@@ -4,39 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create new movie</title>
+    <title>
+        <%= title %>
+    </title>
 </head>
 
 <body>
-    <form action="/movies/new" method="post">
+    <form method="post" action=" <% = mode === 'create'
+    ? '/movies/new'
+    : 'movies/' + movie.id + '/edit' %>">
+
         <label for="title">
-            <input type="text" id="title" name="title" placeholder="Inception" required>
+            <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
         </label>
-        
+
         <label for="releaseDate">Select Release Date:</label>
-        <input type="number" id="releaseDate" name="releaseDate" required>
-        
-        
+        <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released" required>
+
+
         <label for="director">Select a director:</label>
         <select name="director" id="director">
             <% directors.forEach((director)=> { %>
-                <option value="<%= director.id %>">
+                <option <%= director.name === movie.directors ? "selected" : "" %> value="<%= director.id %>">
                     <%= director.name %>
                 </option>
                 <% }) %>
         </select>
 
-        <% genres.forEach(genre=> { %>
+        <% genres.forEach(genre=> { 
+            const selected = movie.genres?.some
+            (movieGenre => movieGenre.id === genre.id);
+        %>
             <label for="<%= genre.name %>">
                 <%= genre.name %>
             </label>
-            <input type="checkbox" name="genres" id="<%= genre.name %>" value="<%= genre.id %>"><br>
+            <input type="checkbox" name="genres" id="<%= genre.name %>" <%= slected ? "checked" : "" %> value="<%= genre.id %>"><br>
             <% }) %>
 
-        <label for="imageUrl">Image URL:</label>
-        <input type="url" id="imageUrl" name="imageUrl">
-        
-        <Button type="submit">Submit</Button>
+                <label for="imageUrl">Image URL:</label>
+                <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url">
+
+                <Button type="submit">Submit</Button>
     </form>
 </body>
 

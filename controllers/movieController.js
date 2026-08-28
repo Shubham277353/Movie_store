@@ -22,7 +22,7 @@ async function getCreateForm(req, res){
     const genres = await db.getGenres();
     const directors = await db.getDirectors();
 
-    res.render("moviesForm", {directors: directors, genres: genres});
+    res.render("moviesForm", {title: "Create Movie", mode: "create", movie: {}, directors: directors, genres: genres});
 }
 
 async function postCreateForm(req, res) {
@@ -39,9 +39,24 @@ console.log("genres:", req.body.genres);
     
 }
 
+async function getEditForm(req, res){
+    const movieDetails = await db.getMovieInfo(req.params.id);
+    const genres = await db.getGenres();
+    const directors = await db.getDirectors();
+
+    if(!movieDetails){
+        return res.status(404).json({error: "Movie not found"});
+    }
+
+    res.render("moviesForm", {title: "Edit Movie", mode: "edit", movie: movieDetails, directors: directors, genres: genres});
+
+    res.redirect("/movies/req.params.id");
+}
+
 module.exports = {
     getAllMovies,
     getMovieDetails,
     getCreateForm,
     postCreateForm,
+    getEditForm,
 }

@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const validateRequest = require("./validateRequest");
+const { validateRequest } = require("./validateRequest");
 
 
 const movieRules = [
