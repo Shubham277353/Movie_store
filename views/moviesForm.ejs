@@ -11,7 +11,7 @@
 
 <body>
     <% if (error) { %>
-        <p>
+        <p style="color: red;">
             <%= error %>
         </p>
         <% } %>
@@ -47,7 +47,7 @@
                             <label for="imageUrl">Image URL:</label>
                             <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
 
-                            <% if (mode==="edit" ) { %>
+                            <% if (mode === "edit" ) { %>
 
                                 <label for="admin">Enter Password to update:</label>
                                 <input type="password" placeholder="guess 'password' ;D" name="password" required>

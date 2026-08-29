@@ -21,7 +21,7 @@ async function getMovieDetails(req, res) {
     return res.status(404).json({ error: "Movie not found" });
   }
 
-  res.render("movieDetails", { info: movieDetails });
+  res.render("movieDetails", { info: movieDetails, error: null });
 }
 
 async function getCreateForm(req, res) {
@@ -46,7 +46,7 @@ async function postCreateForm(req, res) {
     : [req.body.genres];
 
   console.log("movieId:", movieId);
-  console.log("genres:", req.body.genres);
+  console.log("genres:", genres);
 
   db.addGenres(genres, movieId);
 
@@ -94,6 +94,21 @@ async function postEditForm(req, res) {
   res.redirect(`/movies/${req.params.id}`);
 }
 
+async function postDeleteMovie(req, res) {
+    if(req.adminError){
+        const movie = await db.getMovieInfo(req.params.id);
+        
+        return res.status(403).render("movieDetails", {
+            info: movie,
+            error: "Incorrect admin password."
+        });
+    }
+    await db.deleteMovie(req.params.id);
+
+    res.redirect("/");
+    
+}
+
 module.exports = {
   getAllMovies,
   getMovieDetails,
@@ -101,4 +116,5 @@ module.exports = {
   postCreateForm,
   getEditForm,
   postEditForm,
+  postDeleteMovie
 };

@@ -7,20 +7,61 @@
 <body>
     <%- include("./partials/navbar") %>
 
-    <img src="<%= info.image_url %>" alt="<%= info.title %> poster">
-    <a href="/movies/<%= info.id %>/edit">Edit</a>
-    <h2><%= info.title %></h2>
-    <p>Year Released: <%= info.year_released %></p>
-    <% info.genres.forEach((genre)=> { %>
+        <img src="<%= info.image_url %>" alt="<%= info.title %> poster">
+
+        <h2>
+            <%= info.title %>
+        </h2>
+        <p>Year Released: <%= info.year_released %>
+        </p>
+        Genres:
+        <% info.genres.forEach((genre, index)=> { %>
             <a href="/genres/<%= genre.id %>">
                 <%= genre.name %>
             </a>
+            <% if (index < info.genres.length - 1) { %>
+                ,
+                <% } %>
 
-    <% }) %>
-    <p>Director: <%= info.directors %></p>
+                    <% }) %>
+
+                        <p>Director: <a href="/directors/<%= info.director_id %>">
+                                <%= info.directors %>
+                            </a> </p>
 
 
-    <a href="/">back to home...</a>
+                        <a href="/movies/<%= info.id %>/edit">Edit</a>
+                        <button onclick="deleteDialog.showModal()">
+                            Delete Movie
+                        </button>
+                        <dialog id="deleteDialog">
+                            <form method="POST" action="/movies/<%= info.id %>/delete">
+                                <label>
+                                    Admin password:
+                                    <input type="password" name="password" required>
+                                </label>
+
+                                <% if (typeof error !=='undefined' && error) { %>
+                                    <p style="color: red;">
+                                        <%= error %>
+                                    </p>
+                                    <% } %>
+
+                                        <button type="submit">Delete</button>
+                                        <button type="button" onclick="deleteDialog.close()">
+                                            Cancel
+                                        </button>
+                            </form>
+                        </dialog>
+
+                        <% if(error){ %>
+                            <script>
+                                deleteDialog.showModal();
+                            </script>
+                            <% } %>
+
+
+                                <a href="/">back to home...</a>
 </body>
 
 </html>

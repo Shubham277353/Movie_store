@@ -26,8 +26,6 @@ const movieRules = [
 
   body("genres.*").isInt().withMessage("Each genre ID must be an integer"),
 
-  body("password").trim().notEmpty().withMessage("Admin password is required"),
-
   validateRequest,
 ];
 

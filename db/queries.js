@@ -24,7 +24,8 @@ async function getMovieInfo(id) {
         movies.id,
         movies.title,
         movies.year_released,
-        movies.image_url, 
+        movies.image_url,
+        movies.director_id, 
         ARRAY_AGG(JSON_BUILD_OBJECT(
             'id', categories.id,
             'name', categories.name
@@ -154,6 +155,10 @@ async function updateMovie(movieId, movieData, genres) {
 
 }
 
+async function deleteMovie(movieId) {
+  await pool.query(" DELETE FROM movies WHERE id = $1", [movieId]);
+}
+
 module.exports = {
   allMovies,
   getGenres,
@@ -164,4 +169,5 @@ module.exports = {
   addMovie,
   addGenres,
   updateMovie,
+  deleteMovie,
 };
