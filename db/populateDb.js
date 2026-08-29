@@ -348,7 +348,7 @@ VALUES
 
 `;
 
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DATABASE_URL;
 
 async function main() {
   console.log("Seeding...");
