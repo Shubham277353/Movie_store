@@ -1,61 +1,232 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>
         <%= title %>
     </title>
+
+    <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
-    <% if (error) { %>
-        <p style="color: red;">
-            <%= error %>
-        </p>
-        <% } %>
-            <form method="post" action=" <%= mode === 'create'? '/movies/new' : '/movies/' + movie.id + '/edit' %>">
+<body class="min-h-screen bg-slate-950 text-white">
 
-                <label for="title">
-                    <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
+    <%- include("./partials/navbar") %>
+
+    <main class="mx-auto max-w-3xl px-6 py-10">
+
+        <!-- Page Heading -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold">
+                <%= mode === "create" ? "Add New Movie" : "Edit Movie" %>
+            </h1>
+
+            <p class="mt-2 text-sm text-slate-400">
+                <%= mode === "create"
+                    ? "Add a new movie to your collection."
+                    : "Update the details of this movie." %>
+            </p>
+        </div>
+
+
+        <!-- Error Message -->
+        <% if (error) { %>
+
+            <div class="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                <%= error %>
+            </div>
+
+        <% } %>
+
+
+        <!-- Form Card -->
+        <form
+            method="post"
+            action="<%= mode === 'create' ? '/movies/new' : '/movies/' + movie.id + '/edit' %>"
+            class="rounded-xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8"
+        >
+
+            <!-- Movie Title -->
+            <div class="mb-6">
+
+                <label
+                    for="title"
+                    class="mb-2 block text-sm font-medium text-slate-300"
+                >
+                    Movie Title
                 </label>
 
-                <label for="releaseDate">Select Release Date:</label>
-                <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released %>" required>
+                <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value="<%= movie.title || '' %>"
+                    required
+                    class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    placeholder="Enter movie title"
+                >
+
+            </div>
 
 
-                <label for="director">Select a director:</label>
-                <select name="director" id="director">
-                    <% directors.forEach((director)=> { %>
-                        <option <%=director.name===movie.directors ? "selected" : "" %> value="<%= director.id %>">
-                                <%= director.name %>
+            <!-- Release Year -->
+            <div class="mb-6">
+
+                <label
+                    for="releaseDate"
+                    class="mb-2 block text-sm font-medium text-slate-300"
+                >
+                    Release Year
+                </label>
+
+                <input
+                    type="number"
+                    id="releaseDate"
+                    name="releaseDate"
+                    value="<%= movie.year_released %>"
+                    required
+                    class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                >
+
+            </div>
+
+
+            <!-- Director -->
+            <div class="mb-6">
+
+                <label
+                    for="director"
+                    class="mb-2 block text-sm font-medium text-slate-300"
+                >
+                    Director
+                </label>
+
+                <select
+                    name="director"
+                    id="director"
+                    class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                >
+
+                    <% directors.forEach((director) => { %>
+
+                        <option
+                            <%= director.name === movie.directors ? "selected" : "" %>
+                            value="<%= director.id %>"
+                        >
+                            <%= director.name %>
                         </option>
-                        <% }) %>
+
+                    <% }) %>
+
                 </select>
 
-                <% genres.forEach(genre=> {
-                    const selected = movie.genres?.some
-                    (movieGenre => movieGenre.id === genre.id);
+            </div>
+
+
+            <!-- Genres -->
+            <div class="mb-6">
+
+                <p class="mb-3 text-sm font-medium text-slate-300">
+                    Genres
+                </p>
+
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+
+                    <% genres.forEach(genre => {
+                        const selected = movie.genres?.some(
+                            movieGenre => movieGenre.id === genre.id
+                        );
                     %>
-                    <label for="<%= genre.name %>">
-                        <%= genre.name %>
+
+                        <label
+                            for="<%= genre.name %>"
+                            class="flex cursor-pointer items-center gap-3 rounded-lg border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-300 transition hover:border-slate-700 hover:bg-slate-800"
+                        >
+
+                            <input
+                                type="checkbox"
+                                name="genres"
+                                id="<%= genre.name %>"
+                                <%= selected ? "checked" : "" %>
+                                value="<%= genre.id %>"
+                                class="h-4 w-4 rounded border-slate-600 bg-slate-800 text-indigo-600 focus:ring-indigo-500"
+                            >
+
+                            <%= genre.name %>
+
+                        </label>
+
+                    <% }) %>
+
+                </div>
+
+            </div>
+
+
+            <!-- Image URL -->
+            <div class="mb-6">
+
+                <label
+                    for="imageUrl"
+                    class="mb-2 block text-sm font-medium text-slate-300"
+                >
+                    Image URL
+                </label>
+
+                <input
+                    type="url"
+                    id="imageUrl"
+                    name="imageUrl"
+                    value="<%= movie.image_url %>"
+                    class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    placeholder="https://example.com/poster.jpg"
+                >
+
+            </div>
+
+
+            <!-- Admin Password -->
+            <% if (mode === "edit") { %>
+
+                <div class="mb-8">
+
+                    <label
+                        for="admin"
+                        class="mb-2 block text-sm font-medium text-slate-300"
+                    >
+                        Admin Password
                     </label>
-                    <input type="checkbox" name="genres" id="<%= genre.name %>" <%=selected ? "checked" : "" %> value="<%= genre.id %>"><br>
-                        <% }) %>
 
-                            <label for="imageUrl">Image URL:</label>
-                            <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
+                    <input
+                        type="password"
+                        id="admin"
+                        placeholder="guess 'password' ;D"
+                        name="password"
+                        required
+                        class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    >
 
-                            <% if (mode === "edit" ) { %>
+                </div>
 
-                                <label for="admin">Enter Password to update:</label>
-                                <input type="password" placeholder="guess 'password' ;D" name="password" required>
+            <% } %>
 
-                                <% } %>
 
-                                    <Button type="submit">Submit</Button>
-            </form>
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="w-full rounded-lg bg-indigo-600 px-5 py-3 font-semibold text-white transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900"
+            >
+                <%= mode === "create" ? "Create Movie" : "Update Movie" %>
+            </button>
+
+        </form>
+
+    </main>
+
 </body>
 
 </html>

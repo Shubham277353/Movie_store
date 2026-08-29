@@ -1,67 +1,217 @@
-<html>
+<html lang="en">
 
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= info.title %></title>
+
+    <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
+<body class="min-h-screen bg-slate-950 text-white">
+
     <%- include("./partials/navbar") %>
 
-        <img src="<%= info.image_url %>" alt="<%= info.title %> poster">
 
-        <h2>
-            <%= info.title %>
-        </h2>
-        <p>Year Released: <%= info.year_released %>
-        </p>
-        Genres:
-        <% info.genres.forEach((genre, index)=> { %>
-            <a href="/genres/<%= genre.id %>">
-                <%= genre.name %>
+    <!-- Main Content -->
+    <main class="mx-auto max-w-5xl px-6 py-12">
+
+        <!-- Movie Details -->
+        <div class="grid gap-10 md:grid-cols-[280px_1fr]">
+
+            <!-- Poster -->
+            <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-xl">
+
+                <img
+                    src="<%= info.image_url %>"
+                    alt="<%= info.title %> poster"
+                    class="h-full w-full object-cover"
+                    onerror="this.src='/images/movie-placeholder.jpg'"
+                >
+
+            </div>
+
+
+            <!-- Information -->
+            <div class="flex flex-col justify-center">
+
+                <!-- Title -->
+                <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+                    <%= info.title %>
+                </h1>
+
+
+                <!-- Year -->
+                <p class="mt-3 text-lg text-slate-400">
+                    <%= info.year_released %>
+                </p>
+
+
+                <!-- Genres -->
+                <div class="mt-8">
+
+                    <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+                        Genres
+                    </h3>
+
+                    <div class="flex flex-wrap gap-2">
+
+                        <% info.genres.forEach((genre) => { %>
+
+                            <a
+                                href="/genres/<%= genre.id %>"
+                                class="rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-300 transition hover:border-indigo-500 hover:bg-indigo-600 hover:text-white"
+                            >
+                                <%= genre.name %>
+                            </a>
+
+                        <% }) %>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Director -->
+                <div class="mt-8">
+
+                    <h3 class="mb-2 text-sm font-semibold uppercase tracking-wider text-slate-400">
+                        Director
+                    </h3>
+
+                    <a
+                        href="/directors/<%= info.director_id %>"
+                        class="text-lg font-medium text-indigo-400 transition hover:text-indigo-300"
+                    >
+                        <%= info.directors %>
+                    </a>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="mt-10 flex flex-wrap gap-3">
+
+                    <a
+                        href="/movies/<%= info.id %>/edit"
+                        class="rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold transition hover:bg-indigo-500"
+                    >
+                        Edit Movie
+                    </a>
+
+                    <button
+                        type="button"
+                        onclick="deleteDialog.showModal()"
+                        class="rounded-lg border border-red-500/50 bg-red-500/10 px-5 py-3 text-sm font-semibold text-red-400 transition hover:bg-red-500 hover:text-white"
+                    >
+                        Delete Movie
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Back -->
+        <div class="mt-12 border-t border-slate-800 pt-6">
+
+            <a
+                href="/"
+                class="text-sm font-medium text-slate-400 transition hover:text-white"
+            >
+                ← Back to all movies
             </a>
-            <% if (index < info.genres.length - 1) { %>
-                ,
-                <% } %>
 
-                    <% }) %>
+        </div>
 
-                        <p>Director: <a href="/directors/<%= info.director_id %>">
-                                <%= info.directors %>
-                            </a> </p>
+    </main>
 
 
-                        <a href="/movies/<%= info.id %>/edit">Edit</a>
-                        <button onclick="deleteDialog.showModal()">
-                            Delete Movie
-                        </button>
-                        <dialog id="deleteDialog">
-                            <form method="POST" action="/movies/<%= info.id %>/delete">
-                                <label>
-                                    Admin password:
-                                    <input type="password" name="password" required>
-                                </label>
+    <!-- Delete Confirmation Dialog -->
+    <dialog
+        id="deleteDialog"
+        class="w-full max-w-md rounded-xl border border-slate-700 bg-slate-900 p-0 text-white shadow-2xl backdrop:bg-black/70"
+    >
 
-                                <% if (typeof error !=='undefined' && error) { %>
-                                    <p style="color: red;">
-                                        <%= error %>
-                                    </p>
-                                    <% } %>
+        <form
+            method="POST"
+            action="/movies/<%= info.id %>/delete"
+            class="p-6"
+        >
 
-                                        <button type="submit">Delete</button>
-                                        <button type="button" onclick="deleteDialog.close()">
-                                            Cancel
-                                        </button>
-                            </form>
-                        </dialog>
+            <h2 class="text-xl font-bold">
+                Delete Movie
+            </h2>
 
-                        <% if(error){ %>
-                            <script>
-                                deleteDialog.showModal();
-                            </script>
-                            <% } %>
+            <p class="mt-2 text-sm text-slate-400">
+                Are you sure you want to delete
+                <span class="font-medium text-white"><%= info.title %></span>?
+            </p>
+
+            <label class="mt-6 block">
+
+                <span class="mb-2 block text-sm font-medium text-slate-300">
+                    Admin password
+                </span>
+
+                <input
+                    type="password"
+                    name="password"
+                    required
+                    class="w-full rounded-lg border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                    placeholder="Enter admin password"
+                >
+
+            </label>
 
 
-                                <a href="/">back to home...</a>
+            <!-- Error -->
+            <% if (typeof error !== "undefined" && error) { %>
+
+                <p class="mt-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                    <%= error %>
+                </p>
+
+            <% } %>
+
+
+            <!-- Dialog Buttons -->
+            <div class="mt-6 flex justify-end gap-3">
+
+                <button
+                    type="button"
+                    onclick="deleteDialog.close()"
+                    class="rounded-lg border border-slate-700 px-4 py-2 text-sm font-medium text-slate-300 transition hover:bg-slate-800"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold transition hover:bg-red-500"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+        </form>
+
+    </dialog>
+
+
+    <!-- Reopen dialog if there was an error -->
+    <% if (typeof error !== "undefined" && error) { %>
+
+        <script>
+            deleteDialog.showModal();
+        </script>
+
+    <% } %>
+
 </body>
 
 </html>
