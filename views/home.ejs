@@ -1,40 +1,114 @@
-<html>
+<html lang="en">
 
 <head>
-    <title>
-        <%= title %>
-    </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
+<body class="min-h-screen bg-slate-950 text-white">
+
+    <!-- Navbar -->
     <%- include("./partials/navbar") %>
 
-        <a href="/movies/new">Create Movie</a>
 
-        <h2>
-            <%= heading %>
-        </h2>
+    <!-- Main Content -->
+    <main class="mx-auto max-w-7xl px-6 py-10">
 
-        <% movies.forEach((movie)=> { %>
-            <div class="movie-card">
-                <a href="/movies/<%= movie.id %>">
-                    <img src="<%= movie.image_url %>" alt="<%= movie.title %> poster"
-                        onerror="this.src='/images/movie-placeholder.jpg'">
-                    <h3>
-                        <%= movie.title %>
-                    </h3>
-                </a>
-                <p>
-                    <%= movie.year_released %>
+        <!-- Page Header -->
+        <div class="mb-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight sm:text-4xl">
+                    <%= heading %>
+                </h1>
+
+                <p class="mt-2 text-sm text-slate-400">
+                    Browse your movie collection
                 </p>
             </div>
+
+            <a
+                href="/movies/new"
+                class="inline-flex w-fit items-center rounded-lg bg-indigo-600 px-5 py-3 text-sm font-semibold transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-950"
+            >
+                + Create Movie
+            </a>
+
+        </div>
+
+
+        <!-- Movie Grid -->
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6">
+
+            <% movies.forEach((movie) => { %>
+
+                <div
+                    class="group overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-lg transition duration-300 hover:-translate-y-1 hover:border-slate-700 hover:shadow-2xl"
+                >
+
+                    <!-- Movie Poster -->
+                    <a href="/movies/<%= movie.id %>" class="block">
+
+                        <div class="aspect-[2/3] overflow-hidden bg-slate-800">
+
+                            <img
+                                src="<%= movie.image_url %>"
+                                alt="<%= movie.title %> poster"
+                                class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                                onerror="this.src='/images/movie-placeholder.jpg'"
+                            >
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Movie Information -->
+                    <div class="p-4">
+
+                        <a
+                            href="/movies/<%= movie.id %>"
+                            class="block truncate text-base font-semibold text-white transition hover:text-indigo-400"
+                            title="<%= movie.title %>"
+                        >
+                            <%= movie.title %>
+                        </a>
+
+                        <p class="mt-1 text-sm text-slate-400">
+                            <%= movie.year_released %>
+                        </p>
+
+                    </div>
+
+                </div>
+
             <% }) %>
 
-                <% if (backUrl) { %>
-                    <a href="<%= backUrl %>">
-                        <%= backText %>
-                    </a>
-                    <% } %>
+        </div>
+
+
+        <!-- Back Link -->
+        <% if (backUrl) { %>
+
+            <div class="mt-10">
+
+                <a
+                    href="<%= backUrl %>"
+                    class="text-sm font-medium text-slate-400 transition hover:text-white"
+                >
+                    ← <%= backText %>
+                </a>
+
+            </div>
+
+        <% } %>
+
+    </main>
+
 </body>
 
 </html>
