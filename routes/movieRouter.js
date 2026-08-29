@@ -8,6 +8,7 @@ const movieRouter = Router();
 movieRouter.get("/new", movieController.getCreateForm);
 movieRouter.post("/new", movieRules, movieController.postCreateForm);
 movieRouter.get("/:id/edit", movieController.getEditForm);
+movieRouter.post("/:id/edit", movieController.postEditForm);
 movieRouter.get("/:id", movieController.getMovieDetails);
 
 

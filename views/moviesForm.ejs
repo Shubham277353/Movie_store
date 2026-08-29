@@ -10,16 +10,14 @@
 </head>
 
 <body>
-    <form method="post" action=" <% = mode === 'create'
-    ? '/movies/new'
-    : 'movies/' + movie.id + '/edit' %>">
+    <form method="post" action=" <%= mode === 'create'? '/movies/new': 'movies/' + movie.id + '/edit' %>">
 
         <label for="title">
             <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
         </label>
 
         <label for="releaseDate">Select Release Date:</label>
-        <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released" required>
+        <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released %>" required>
 
 
         <label for="director">Select a director:</label>
@@ -38,11 +36,11 @@
             <label for="<%= genre.name %>">
                 <%= genre.name %>
             </label>
-            <input type="checkbox" name="genres" id="<%= genre.name %>" <%= slected ? "checked" : "" %> value="<%= genre.id %>"><br>
+            <input type="checkbox" name="genres" id="<%= genre.name %>" <%= selected ? "checked" : "" %> value="<%= genre.id %>"><br>
             <% }) %>
 
                 <label for="imageUrl">Image URL:</label>
-                <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url">
+                <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
 
                 <Button type="submit">Submit</Button>
     </form>

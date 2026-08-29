@@ -50,7 +50,7 @@ async function getEditForm(req, res){
 
     res.render("moviesForm", {title: "Edit Movie", mode: "edit", movie: movieDetails, directors: directors, genres: genres});
 
-    res.redirect("/movies/req.params.id");
+    // res.redirect(`/movies/${req.params.id}`);
 }
 
 module.exports = {

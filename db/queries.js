@@ -20,7 +20,8 @@ async function getDirectors() {
 async function getMovieInfo(id) {
   const { rows } = await pool.query(
     `
-        SELECT 
+        SELECT
+        movies.id,
         movies.title,
         movies.year_released,
         movies.image_url, 
