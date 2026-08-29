@@ -10,7 +10,8 @@ CREATE TABLE categories (
 
 CREATE TABLE directors (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR(255) UNIQUE NOT NULL
+    name VARCHAR(255) UNIQUE NOT NULL,
+    image_url TEXT
 );
 
 CREATE TABLE movies (
@@ -46,19 +47,19 @@ VALUES
   ('Mystery');
 
 
-INSERT INTO directors (name)
+INSERT INTO directors (name, image_url)
 VALUES
-  ('Christopher Nolan'),
-  ('Ridley Scott'),
-  ('Jordan Peele'),
-  ('Steven Spielberg'),
-  ('Martin Scorsese'),
-  ('Hayao Miyazaki'),
-  ('Satyajit Ray'),
-  ('James Cameron'),
-  ('Denis Villeneuve'),
-  ('Bong Joon Ho'),
-  ('Quentin Tarantino');
+  ('Christopher Nolan', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8G4BG9vQtRSx0Sitx4sQXvr2eLdfS0b7VBSD4p04Nig&s=10'),
+  ('Ridley Scott', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-3IPwu11CkWwRmEmP9PCXWYWDXNZaCbl3Kr3Mb-SArg&s=10'),
+  ('Jordan Peele', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXKUDAiEH-T0BB7EASKO58L_YQ8APDVDoMitC-XHUPMg&s=10'),
+  ('Steven Spielberg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXKUDAiEH-T0BB7EASKO58L_YQ8APDVDoMitC-XHUPMg&s=10'),
+  ('Martin Scorsese', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2oSx61CBjs4R--QxXYw4YFpgSXifpQwsrX5gKZeyZbw&s=10'),
+  ('Hayao Miyazaki', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgaFAsM3gq_wsxPEmPMddWN8RDdmowdYu_V9MzdxXtjA&s=10'),
+  ('Satyajit Ray', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJPIDdqxHv2yQGQXJAiVn4KiqiSdBBn2ggzqcYB0urqQ&s'),
+  ('James Cameron', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTl-9BA8d7_4kcZ30QpvLkOyxEOzAO1te6GeCiEzKfuBg&s=10'),
+  ('Denis Villeneuve', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFhIrIiiEYtI3yvgyrgJ1-5RGcZoE9Lv7PWzZwXilErw&s=10'),
+  ('Bong Joon Ho', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeJzl4bFfRitR1GS0NE_2G2QYxPKR9UTw7qDwb0_D8AQ&s=10'),
+  ('Quentin Tarantino', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6PRpILfv1X6q8I1jmrylz2qD7DNOp7-S3Mg_UFS0glbvUdGEoy7tdDMc&s=10');
 
 
 INSERT INTO movies (title, year_released, director_id, image_url)

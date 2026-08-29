@@ -5,21 +5,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genres</title>
+    <link rel="stylesheet" href="/css/output.css">
 </head>
 
-<body>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+
     <%- include("./partials/navbar") %>
 
-    <h2>All Genres</h2>
-    <% genres.forEach((genre)=> { %>
-        <div>
-            <a href="/genres/<%= genre.id %>">
-                <h3>
-                    <%= genre.name %>
-                </h3>
-            </a>
+    <main class="mx-auto max-w-6xl px-6 py-12">
+
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold tracking-tight">
+                All Genres
+            </h1>
+
+            <p class="mt-2 text-slate-400">
+                Browse movies by genre.
+            </p>
         </div>
-        <% }) %>
+
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+
+            <% genres.forEach((genre) => { %>
+
+                <a
+                    href="/genres/<%= genre.id %>"
+                    class="group rounded-xl border border-slate-800 bg-slate-900 p-5 transition duration-200 hover:-translate-y-1 hover:border-indigo-500 hover:bg-slate-800"
+                >
+
+                    <h2 class="font-semibold text-slate-200 transition group-hover:text-indigo-400">
+                        <%= genre.name %>
+                    </h2>
+
+                    <p class="mt-2 text-sm text-slate-500">
+                        Explore →
+                    </p>
+
+                </a>
+
+            <% }) %>
+
+        </div>
+
+    </main>
+
 </body>
 
 </html>
