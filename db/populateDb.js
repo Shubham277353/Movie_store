@@ -22,8 +22,8 @@ CREATE TABLE movies (
 );
 
 CREATE TABLE movie_genres (
-    movie_id INTEGER REFERENCES movies(id),
-    category_id INTEGER REFERENCES categories(id),
+    movie_id INTEGER REFERENCES movies(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
     PRIMARY KEY (movie_id, category_id)
 );
 

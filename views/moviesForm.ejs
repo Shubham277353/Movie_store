@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form method="post" action=" <%= mode === 'create'? '/movies/new': 'movies/' + movie.id + '/edit' %>">
+    <form method="post" action=" <%= mode === 'create'? '/movies/new' : '/movies/' + movie.id + '/edit' %>">
 
         <label for="title">
             <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
@@ -23,26 +23,32 @@
         <label for="director">Select a director:</label>
         <select name="director" id="director">
             <% directors.forEach((director)=> { %>
-                <option <%= director.name === movie.directors ? "selected" : "" %> value="<%= director.id %>">
-                    <%= director.name %>
+                <option <%=director.name===movie.directors ? "selected" : "" %> value="<%= director.id %>">
+                        <%= director.name %>
                 </option>
                 <% }) %>
         </select>
 
-        <% genres.forEach(genre=> { 
+        <% genres.forEach(genre=> {
             const selected = movie.genres?.some
             (movieGenre => movieGenre.id === genre.id);
-        %>
+            %>
             <label for="<%= genre.name %>">
                 <%= genre.name %>
             </label>
-            <input type="checkbox" name="genres" id="<%= genre.name %>" <%= selected ? "checked" : "" %> value="<%= genre.id %>"><br>
-            <% }) %>
+            <input type="checkbox" name="genres" id="<%= genre.name %>" <%=selected ? "checked" : "" %> value="<%=
+                genre.id %>"><br>
+                <% }) %>
 
-                <label for="imageUrl">Image URL:</label>
-                <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
+                    <label for="imageUrl">Image URL:</label>
+                    <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
 
-                <Button type="submit">Submit</Button>
+                    <!-- <% mode==="edit" ? <label for="admin"> Enter Password to update: </lable>
+                        <input type="password" placeholder="guess 'password' ;D" name="password">
+                        : " "
+                        %> -->
+
+                        <Button type="submit">Submit</Button>
     </form>
 </body>
 

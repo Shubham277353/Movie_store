@@ -98,7 +98,7 @@ async function addMovie(request) {
         VALUES($1, $2, $3, $4)
         RETURNING id
         `,
-    [request.title, request.yearReleased, request.imageUrl, request.director],
+    [request.title, request.releaseDate, request.imageUrl, request.director],
   );
   return rows[0].id;
 }
@@ -113,6 +113,47 @@ async function addGenres(genres, movieId) {
   }
 }
 
+
+async function updateMovie(movieId, movieData, genres) {
+  const client = await pool.connect();
+
+  try{
+    await client.query("BEGIN");
+
+    await client.query(`
+      UPDATE movies
+      SET title = $1,
+      year_released = $2,
+      director_id = $3,
+      image_url = $4
+      WHERE
+      id = $5
+      `, [movieData.title, movieData.releaseDate, movieData.director, movieData.imageUrl, movieId]);
+
+      await client.query( `
+        DELETE FROM movie_genres
+        WHERE movie_id = $1`, [movieId]);
+
+      for(const genre of genres){
+        await client.query(
+        `
+        INSERT INTO movie_genres(movie_id, category_id)
+        VALUES ($1, $2)
+        `,[movieId, genre]
+      )};
+
+      await client.query("COMMIT");
+
+  } catch(error){
+    await client.query("ROLLBACK");
+    throw error;
+  }
+  finally {
+    client.release();
+  }
+
+}
+
 module.exports = {
   allMovies,
   getGenres,
@@ -122,4 +163,5 @@ module.exports = {
   getDirectorMovies,
   addMovie,
   addGenres,
+  updateMovie,
 };

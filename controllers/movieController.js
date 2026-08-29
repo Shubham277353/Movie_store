@@ -8,6 +8,7 @@ async function getAllMovies(req, res) {
 
 
 async function getMovieDetails(req, res) {
+    console.log(req.params.id);
     const movieDetails = await db.getMovieInfo(req.params.id);
     console.dir(movieDetails, { depth: null });
 
@@ -31,12 +32,11 @@ async function postCreateForm(req, res) {
     const genres = Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres];
 
     console.log("movieId:", movieId);
-console.log("genres:", req.body.genres);
+    console.log("genres:", req.body.genres);
 
     db.addGenres(genres, movieId);
 
     res.redirect("/");
-    
 }
 
 async function getEditForm(req, res){
@@ -50,7 +50,14 @@ async function getEditForm(req, res){
 
     res.render("moviesForm", {title: "Edit Movie", mode: "edit", movie: movieDetails, directors: directors, genres: genres});
 
-    // res.redirect(`/movies/${req.params.id}`);
+}
+
+async function postEditForm(req, res) {
+    const genres = Array.isArray(req.body.genres) ? req.body.genres : [req.body.genres];
+
+    db.updateMovie(req.params.id, req.body, genres);
+
+    res.redirect(`/movies/${req.params.id}`);
 }
 
 module.exports = {
@@ -59,4 +66,5 @@ module.exports = {
     getCreateForm,
     postCreateForm,
     getEditForm,
+    postEditForm,
 }
