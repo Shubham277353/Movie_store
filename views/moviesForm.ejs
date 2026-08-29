@@ -10,46 +10,52 @@
 </head>
 
 <body>
-    <form method="post" action=" <%= mode === 'create'? '/movies/new' : '/movies/' + movie.id + '/edit' %>">
+    <% if (error) { %>
+        <p>
+            <%= error %>
+        </p>
+        <% } %>
+            <form method="post" action=" <%= mode === 'create'? '/movies/new' : '/movies/' + movie.id + '/edit' %>">
 
-        <label for="title">
-            <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
-        </label>
+                <label for="title">
+                    <input type="text" id="title" name="title" value="<%= movie.title || '' %>" required>
+                </label>
 
-        <label for="releaseDate">Select Release Date:</label>
-        <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released %>" required>
+                <label for="releaseDate">Select Release Date:</label>
+                <input type="number" id="releaseDate" name="releaseDate" value="<%= movie.year_released %>" required>
 
 
-        <label for="director">Select a director:</label>
-        <select name="director" id="director">
-            <% directors.forEach((director)=> { %>
-                <option <%=director.name===movie.directors ? "selected" : "" %> value="<%= director.id %>">
-                        <%= director.name %>
-                </option>
-                <% }) %>
-        </select>
+                <label for="director">Select a director:</label>
+                <select name="director" id="director">
+                    <% directors.forEach((director)=> { %>
+                        <option <%=director.name===movie.directors ? "selected" : "" %> value="<%= director.id %>">
+                                <%= director.name %>
+                        </option>
+                        <% }) %>
+                </select>
 
-        <% genres.forEach(genre=> {
-            const selected = movie.genres?.some
-            (movieGenre => movieGenre.id === genre.id);
-            %>
-            <label for="<%= genre.name %>">
-                <%= genre.name %>
-            </label>
-            <input type="checkbox" name="genres" id="<%= genre.name %>" <%=selected ? "checked" : "" %> value="<%=
-                genre.id %>"><br>
-                <% }) %>
+                <% genres.forEach(genre=> {
+                    const selected = movie.genres?.some
+                    (movieGenre => movieGenre.id === genre.id);
+                    %>
+                    <label for="<%= genre.name %>">
+                        <%= genre.name %>
+                    </label>
+                    <input type="checkbox" name="genres" id="<%= genre.name %>" <%=selected ? "checked" : "" %> value="<%= genre.id %>"><br>
+                        <% }) %>
 
-                    <label for="imageUrl">Image URL:</label>
-                    <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
+                            <label for="imageUrl">Image URL:</label>
+                            <input type="url" id="imageUrl" name="imageUrl" value="<%= movie.image_url %>">
 
-                    <!-- <% mode==="edit" ? <label for="admin"> Enter Password to update: </lable>
-                        <input type="password" placeholder="guess 'password' ;D" name="password">
-                        : " "
-                        %> -->
+                            <% if (mode==="edit" ) { %>
 
-                        <Button type="submit">Submit</Button>
-    </form>
+                                <label for="admin">Enter Password to update:</label>
+                                <input type="password" placeholder="guess 'password' ;D" name="password" required>
+
+                                <% } %>
+
+                                    <Button type="submit">Submit</Button>
+            </form>
 </body>
 
 </html>
